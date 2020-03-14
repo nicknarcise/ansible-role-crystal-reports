@@ -1,0 +1,36 @@
+---
+- name: "Ensure {{ remote_dest }} directory exists"
+  win_file:
+    path: "{{ remote_dest }}"
+    state: directory
+
+- name: "Upload SAP Crystal Reports {{ crystal_rpt_exe }} binary"
+  win_copy:
+    src: "{{ local_src }}/{{ crystal_rpt_exe }}"
+    dest: "{{ remote_dest }}/{{ crystal_rpt_exe }}"
+    remote_src: False
+  register: crystal_reports_binary
+
+- name: Create a {{ response_file }} 
+  win_template:
+    src: "{{ response_file }}.j2"
+    dest: "{{ remote_dest }}/{{ response_file }}"
+
+# TODO - Fix Silent Install
+#- name: Install SAP Crystal Reports
+#  win_package:
+#    path: C:\Temp\CR201607P_700-80000444.EXE
+#    product_id: '{018ECF3F-26EA-4969-9FCC-810893F9C2DE}'
+#    arguments:
+#    - /qn
+#  register: crystal_reports_installed
+#  when: crystal_reports_binary
+
+#- name: Install Labware SAP Crystal Reports Runtime files
+#  win_package:
+#    path: C:\2020_LWCEC\Installation Files\01-LabWare 8\CRRuntime_32bit_13_0_19.msi
+#    arguments:
+#    - /quiet
+#    - /norestart
+#    state: present
+#  when: crystal_reports_installed

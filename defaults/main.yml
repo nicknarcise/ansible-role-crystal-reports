@@ -1,0 +1,9 @@
+---
+local_src: /tmp
+crystal_rpt_exe: CR201607P_700-80000444.EXE
+remote_dest: "C:/Temp"
+response_file: response.ini
+cr_install_dir: "C:/Program Files (x86)/SAP BusinessObjects/"
+cr_product_key: "LICENSEKEY"
+cr_registered_co: "COMPANYNAME"
+cr_registered_user: "USERNAME"
