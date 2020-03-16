@@ -7,14 +7,14 @@
 - name: "Upload SAP Crystal Reports {{ crystal_rpt_exe }} binary"
   win_copy:
     src: "{{ local_src }}/{{ crystal_rpt_exe }}.zip"
-    dest: "{{ remote_dest }}/{{ crystal_rpt_exe }}.zip"
+    dest: "{{ remote_dest }}\\{{ crystal_rpt_exe }}.zip"
     remote_src: False
   register: crystal_reports_binary
 
 - name: Create a {{ response_file }} 
   win_template:
     src: "{{ response_file }}.j2"
-    dest: "{{ remote_dest }}/{{ response_file }}"
+    dest: "{{ remote_dest }}\\{{ response_file }}"
 
 - name: "Unzip {{ crystal_rpt_exe }}.zip repo to {{ remote_dest }}" 
   win_unzip:
@@ -30,12 +30,3 @@
     arguments: "-r {{ remote_dest }}\\{{ response_file }}"
   register: crystal_reports_installed
   when: crystal_reports_binary
-
-#- name: Install Labware SAP Crystal Reports Runtime files
-#  win_package:
-#    path: C:\2020_LWCEC\Installation Files\01-LabWare 8\CRRuntime_32bit_13_0_19.msi
-#    arguments:
-#    - /quiet
-#    - /norestart
-#    state: present
-#  when: crystal_reports_installed
